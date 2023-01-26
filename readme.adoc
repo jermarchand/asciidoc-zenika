@@ -1,0 +1,26 @@
+= My Zenika theme for AsciiDoc
+
+My docker command to generate PDF from `adoc` files.
+
+[source,bash]
+--
+docker run --user $(id -u):$(id -g) \                                                          
+    --rm \                 
+    -v $PWD:/documents \
+    -v <PATH_TO_THIS_REPO>/themes:/documents/themes  \
+    asciidoctor/docker-asciidoctor asciidoctor-pdf \
+    -r asciidoctor-diagram \
+    -a icons=font \
+    -a experimental=true \
+    -a plantuml-config=themes/plantuml.cfg \
+    -a screenshot-dir-name=screenshots \
+    -a source-highlighter=coderay \
+    -a toclevels=2 \
+    -a toc \
+    -a title-page \
+    -a pagenums \
+    -a pdf-style=themes/pdf-theme.yml \
+    -a pdf-fontsdir=themes/fonts/pdf \
+    -a allow-uri-read \
+    *.adoc
+--
